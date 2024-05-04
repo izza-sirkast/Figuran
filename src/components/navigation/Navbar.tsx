@@ -37,8 +37,8 @@ export default function Navbar({}: Props) {
 
       {isMenuDrop &&
         <div className='flex flex-col justify-center items-center bg-black text-white border-t border-white pt-3 *:mb-2 absolute w-full'>
-          <Link href={'/'} className={`${pathName == '/' ? 'underline' : 'hover:text-slate-400'} `}>Gallery</Link>
-          <Link href={'/album'} className={`${pathName == '/album' ? 'underline' : 'hover:text-slate-400'}`}>Album</Link>
+          <Link href={'/'} onClick={dropMenu} className={`${pathName == '/' ? 'underline' : 'hover:text-slate-400'} `}>Gallery</Link>
+          <Link href={'/album'} onClick={dropMenu} className={`${pathName == '/album' ? 'underline' : 'hover:text-slate-400'}`}>Album</Link>
         </div>
       }
     </nav>
