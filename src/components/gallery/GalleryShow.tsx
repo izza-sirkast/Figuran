@@ -5,12 +5,12 @@ import React, {useState, useEffect} from 'react'
 type Props = {}
 
 export default function GalleryShow({}: Props) {
-    const [gallery, setGallery] = useState<Image[]>([])
+    const [gallery, setGallery] = useState<ImageInADate[]>([])
 
     useEffect(() => {
         const fetchGallery = async () => {
             try {
-                const res = await fetch("http://localhost:3000/api/image", {method:"GET"})
+                const res = await fetch("http://localhost:3000/api/image/grouped", {method:"GET"})
                 if(res.ok){
                     setGallery(await res.json())
                 }
@@ -23,12 +23,35 @@ export default function GalleryShow({}: Props) {
     },[])
 
 
-    console.log(gallery)
+    const galleryOfTheDate = (galleryInDate : ImageInADate) => (
+        <div className='mb-10' key={galleryInDate._id}>
+            <p>{galleryInDate._id}</p>
+            <div className='flex flex-wrap'>
+                {galleryInDate.data.map(img => {
+                    return (
+                        <img key={img._id} src={img.imageBase64} className='h-36 mr-2 mb-2'>
+                        </img>
+                    )
+                })}
+            </div>
+        </div>
+    )
+
   return (
     <>
-        {gallery.map(image => {
+        {gallery.map((galleryInDate : ImageInADate) => {
             return (
-                <img key={image._id} src={image.imageBase64} alt={image.title} className='mb-6 h-44'/>
+                <div className='mb-10' key={galleryInDate._id}>
+                    <p>{galleryInDate._id}</p>
+                    <div className='flex flex-wrap'>
+                        {galleryInDate.data.map(img => {
+                            return (
+                                <img key={img._id} src={img.imageBase64} className='h-36 mr-2 mb-2'>
+                                </img>
+                            )
+                        })}
+                    </div>
+                </div>
             )
         })}
     </>
